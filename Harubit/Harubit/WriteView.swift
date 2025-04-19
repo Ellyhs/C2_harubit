@@ -25,7 +25,7 @@ struct WriteView: View {
                         
                         Spacer()
                         
-                        Button("완료") {
+                        Button("완료!") {
                             print("")
                         }
                         .padding(20)
