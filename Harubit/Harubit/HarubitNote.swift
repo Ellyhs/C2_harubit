@@ -11,11 +11,11 @@ import SwiftData
 @Model
 class HarubitNote {
     var content: String
-    var createDate: Date
+    var createdDate: Date
     
-    init(content: String, createDate: Date) {
+    init(content: String, createdDate: Date) {
         self.content = content
-        self.createDate = createDate
+        self.createdDate = createdDate
     }
     
     

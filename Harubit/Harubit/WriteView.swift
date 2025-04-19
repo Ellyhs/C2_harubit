@@ -13,7 +13,7 @@ struct WriteView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var content: String = ""
-    @State private var createDate: Date = Date.now
+    @State private var createdDate: Date = Date.now
     
     var body: some View {
         ZStack {
@@ -37,11 +37,17 @@ struct WriteView: View {
                     Spacer()
                     
                     Button("완료") {
-                        let contentSet = HarubitNote(content: content, createDate: createDate)
+                        let contentSet = HarubitNote(content: content, createdDate: createdDate)
                         context.insert(contentSet)
                         
+                        do {
+                            try context.save()
+                        } catch {
+                            print("Error saving context: \(error)")
+                        }
+                        
                         content = ""
-                        createDate = .now
+                        createdDate = .now
                     }
                     .padding(20)
                 }
@@ -72,4 +78,5 @@ struct WriteView: View {
 
 #Preview {
     WriteView()
+        .modelContainer(for: HarubitNote.self, inMemory: true)
 }

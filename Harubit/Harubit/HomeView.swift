@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
     @StateObject var recordManger = RecordManager()
@@ -60,4 +61,5 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .modelContainer(for: HarubitNote.self, inMemory: true)
 }
