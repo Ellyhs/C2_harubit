@@ -5,43 +5,66 @@
 //  Created by ellllly on 4/16/25.
 //
 import SwiftUI
+import SwiftData
 
 struct WriteView: View {
-    @State private var txt: String = ""
+    @Query private var harubitNote: [HarubitNote]
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
+    
+    @State private var content: String = ""
+    @State private var createDate: Date = Date.now
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Image("background")
-                    .resizable()
-                    .ignoresSafeArea()
-                VStack {
-                    HStack {
-                        Button("뒤로", systemImage: "arrow.left") {
-                            print("")
-                        }
-                        .labelStyle(.iconOnly)
-                        .padding(20)
-                        
-                        Spacer()
-                        
-                        Button("완료!") {
-                            print("")
-                        }
-                        .padding(20)
-                     }
-                                 
-                    .foregroundStyle(.white)
+        ZStack {
+            Image("background")
+                .resizable()
+                .ignoresSafeArea()
+            VStack {
+                HStack {
+                    Button(action:{
+                        dismiss()
+                    }, label: {
+                        Image(systemName: "arrow.left")
+                            .resizable()
+                            .frame(width: 15, height: 15)
+                            .padding()
+                    })
                     
-                    TextField("오늘의 감사한 순간을 적어주세요", text: $txt)
-                        .padding([.leading, .top], 50)
-                        .foregroundStyle(.white)
-                        
-                        
+                    .labelStyle(.iconOnly)
+                    .padding(20)
+                    
                     Spacer()
+                    
+                    Button("완료") {
+                        let contentSet = HarubitNote(content: content, createDate: createDate)
+                        context.insert(contentSet)
+                        
+                        content = ""
+                        createDate = .now
+                    }
+                    .padding(20)
                 }
+                .foregroundStyle(.white)
                 
+                ZStack(alignment: .topLeading){
+                    TextEditor(text: $content)
+                        .padding(20)
+                        .scrollContentBackground(.hidden)
+                        .background(.clear)
+                        .foregroundColor(.white)
+                    
+                    if content.isEmpty {
+                        Text("오늘의 감사한 순간을 작성해주세요")
+                            .foregroundColor(.white)
+                            .padding(20)
+                            .padding(.vertical, 12)
+                    }
+                    
+                }
+                Spacer()
             }
+            .navigationBarBackButtonHidden(true)
         }
         
     }

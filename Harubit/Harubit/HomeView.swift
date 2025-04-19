@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var today = Date()
-    
-    
-    
+    @StateObject var recordManger = RecordManager()
+
     var body: some View {
         NavigationStack {
             ZStack{
@@ -23,20 +21,27 @@ struct HomeView: View {
                         .padding([.bottom], 100)
                         .font(.headline)
                         .foregroundColor(.white)
+                    
                     HStack(alignment: .center) {
-                        Text(getFormatteredDate(form: "MM"))
+                        Text(recordManger.getFormattedDate(form: "MM"))
                             .font(.largeTitle)
-                        Text(getFormatteredDate(form: "EEE"))
+                        Text(recordManger.getFormattedDate(form: "EEE"))
                     }
                     .foregroundColor(.white)
-                    Text(getFormatteredDate(form: "dd"))
+                    
+                    Text(recordManger.getFormattedDate(form: "dd"))
                         .font(.largeTitle)
                         .padding(.bottom, 20)
                         .foregroundStyle(.white)
-                    Button("GoWrite", systemImage: "square.and.pencil") {
-//                        WriteView()
-                        print("")
+                    
+                    NavigationLink(destination: WriteView()) {
+                        Image(systemName: "square.and.pencil")
+                            .resizable()
+                            .frame(width:80, height:80)
+                            .foregroundColor(.white)
+                            .padding()
                     }
+                    
 //                    .frame(width: 30, height: 50)
                     .labelStyle(.iconOnly)
                     .font(.title)
@@ -48,14 +53,7 @@ struct HomeView: View {
         }
     }
     
-    func getFormatteredDate(form: String) -> String {
-        let today = Date()
-        let formatter = DateFormatter()
-      
-        formatter.dateFormat = form
-        
-        return formatter.string(from: today)
-    }
+    
     
     
 }
