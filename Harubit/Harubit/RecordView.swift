@@ -41,7 +41,7 @@ struct RecordView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 20) {
                                 ForEach(pages.indices, id: \.self) { i in
-                                    Text(harubitNote[0].content)//"일기내용")
+                                    Text("일기내용")
                                         .frame(width: 350, height: 500)
                                         .background(Color.white.opacity(0.3))
                                         .foregroundColor(.white)
@@ -98,5 +98,4 @@ struct RecordView: View {
 
 #Preview {
     RecordView()
-        .modelContainer(for: HarubitNote.self, inMemory: true)
 }

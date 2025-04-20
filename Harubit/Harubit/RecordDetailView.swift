@@ -10,7 +10,7 @@ import SwiftData
 
 struct RecordDetailView: View {
     @Query private var harubitNote: [HarubitNote]
-    
+    @Environment(\.modelContext) private var context
     @State private var date = Date.now
     
     var body: some View {
@@ -32,7 +32,7 @@ struct RecordDetailView: View {
                 
                 List(harubitNote) {note in
                     HStack {
-                        Text("안녕")//note.content)
+                        Text(note.content)
                             .foregroundColor(.black) //Spacer()
                         Text(note.createdDate, format: .dateTime.month().day().year())
                     }
@@ -51,5 +51,4 @@ struct RecordDetailView: View {
 }
 #Preview {
     RecordDetailView()
-        .modelContainer(for: HarubitNote.self, inMemory: true)
 }
