@@ -12,13 +12,18 @@ struct RecordView: View {
     @StateObject var recordManger = RecordManager()
     @Query private var harubitNote: [HarubitNote]
     
+    @State private var didFinishFirstEntry = false
+    @State private var content: String = ""
+    @State private var createdDate: Date = Date.now
+
+    
     @State private var currentIndex: Int = 0
     let pages = ["2023", "2024", "2025"]
     
 //    var indicatorColors: [Color] = [.pink, .mint, .orange]
 //    
     var body: some View {
-        ZStack{
+            ZStack{
             Image("background")
                 .resizable()
                 .ignoresSafeArea()

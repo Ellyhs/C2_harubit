@@ -10,8 +10,6 @@ import SwiftData
 
 struct RecordDetailView: View {
     @Query private var harubitNote: [HarubitNote]
-    @Environment(\.modelContext) private var context
-    @State private var date = Date.now
     
     var body: some View {
         ZStack{
@@ -22,30 +20,26 @@ struct RecordDetailView: View {
             VStack {
                 Text("감사일기장")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(50)
+                    .padding(30)
                     .foregroundColor(.accentColor)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 
-                Text("Count: \(harubitNote.count)")
-                    .foregroundColor(.white)
-                
                 List(harubitNote) {note in
                     HStack {
                         Text(note.content)
-                            .foregroundColor(.black) //Spacer()
-                        Text(note.createdDate, format: .dateTime.month().day().year())
+//                            .foregroundColor(.white)
+                        Spacer()
+                        Text(note.createdDate, format: .dateTime.month(.wide).day().year())
+//                            .foregroundStyle(.white)
                     }
                 }
-//                .listStyle()
-//                .scrollContentBackground(.hidden)
-//                .background(Color(.systemGray6))
+                .listRowBackground(Color.white.opacity(0.3))
+                .scrollContentBackground(.hidden)
+//                .background(Color.white.opacity(0.2))
                 
                 Spacer()
-                
-                
             }
-            .background(Color.black)
         }
     }
 }

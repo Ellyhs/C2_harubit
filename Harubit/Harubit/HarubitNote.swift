@@ -13,7 +13,7 @@ class HarubitNote {
     var content: String
     var createdDate: Date
     
-    init(content: String, createdDate: Date) {
+    init(content: String, createdDate: Date = Date()) {
         self.content = content
         self.createdDate = createdDate
     }

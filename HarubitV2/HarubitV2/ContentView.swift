@@ -10,10 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            WriteView()
         }
         .padding()
     }
@@ -21,4 +18,6 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(for: HarubitNote.self, inMemory: true)
 }
+
