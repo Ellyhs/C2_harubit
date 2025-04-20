@@ -26,14 +26,29 @@ struct RecordDetailView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     
-                    List(harubitNote) {note in
-                        HStack {
-                            Text(note.content.count > 12 ? "\(note.content.prefix(12))..." : note.content)
-                                .font(.headline)
-                            Spacer()
-                            Text(note.createdDate, format: .dateTime.month(.wide).day().year())
-                                .foregroundColor(.secondary)
-                                .font(.caption)
+//                    List(harubitNote) {note in
+//                        HStack {
+//                            Text(note.content.count > 12 ? "\(note.content.prefix(12))..." : note.content)
+//                                .font(.headline)
+//                            Spacer()
+//                            Text(note.createdDate, format: .dateTime.month(.wide).day().year())
+//                                .foregroundColor(.secondary)
+//                                .font(.caption)
+//                        }
+//                    }
+//                    .listRowBackground(Color.white)
+//                    .scrollContentBackground(.hidden)
+//                    .background(Color.white.opacity(0.2))
+                    List(harubitNote) { note in
+                        NavigationLink(destination: RecordView(selectedDate: note.createdDate)) {
+                            HStack {
+                                Text(note.content.count > 12 ? "\(note.content.prefix(12))..." : note.content)
+                                    .font(.headline)
+                                Spacer()
+                                Text(note.createdDate, format: .dateTime.month(.wide).day().year())
+                                    .foregroundColor(.secondary)
+                                    .font(.caption)
+                            }
                         }
                     }
                     .listRowBackground(Color.white)

@@ -16,10 +16,15 @@ struct RecordView: View {
     @State private var content: String = ""
     @State private var createdDate: Date = Date.now
 
+    var selectedDate: Date
     
     @State private var currentIndex: Int = 2
-    let pages = ["2023", "2024", "2025"]
     
+//    let pages = ["2023", "2024", "2025"]
+    var pages: [String] {
+            let currentYear = Calendar.current.component(.year, from: selectedDate)
+            return [String(currentYear - 2), String(currentYear - 1), String(currentYear)]
+        }
  
     var body: some View {
             ZStack{
@@ -43,11 +48,19 @@ struct RecordView: View {
                     TabView(selection: $currentIndex) {
                         ForEach(pages.indices, id: \.self) { i in
                             VStack {
-                                Text("일기내용") // → 여기에 해당 연도의 일기 내용을 넣으면 됨
-                                    .frame(width: 350, height: 500)
-                                    .background(Color.white.opacity(0.3))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(8)
+//                                Text("일기내용") // → 여기에 해당 연도의 일기 내용을 넣으면 됨
+//                                    .frame(width: 350, height: 500)
+//                                    .background(Color.white.opacity(0.3))
+//                                    .foregroundColor(.white)
+//                                    .cornerRadius(8)
+                                if let note = harubitNote.first(where: {Calendar.current.component(.year, from: $0.createdDate) == Int(pages[i]) && Calendar.current.isDate($0.createdDate, inSameDayAs: selectedDate)}) {
+                                    Text(note.content)
+                                        .frame(width: 350, height: 500)
+                                        .background(Color.white.opacity(0.3))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(8)
+                                }
+                                
                             }
                             .tag(i)
                         }
@@ -57,7 +70,7 @@ struct RecordView: View {
                     .environment(\.layoutDirection, .leftToRight)
                     
 //                    GeometryReader { geo in
-//                        
+//
 //                        ScrollView(.horizontal, showsIndicators: false) {
 //                            HStack(spacing: 20) {
 //                                ForEach(pages.indices, id: \.self) { i in
@@ -81,7 +94,7 @@ struct RecordView: View {
 //                                                    }
 //                                                }
 //                        )
-//                        
+//
 //                    }
                     
                     HStack{
@@ -107,5 +120,5 @@ struct RecordView: View {
 }
 
 #Preview {
-    RecordView()
+    RecordView(selectedDate: Date())
 }

@@ -10,7 +10,7 @@ import SwiftData
 
 struct HomeView: View {
     @StateObject var recordManger = RecordManager()
-    
+    @Query private var harubitNote: [HarubitNote]
     
     
 
@@ -39,18 +39,32 @@ struct HomeView: View {
 //                        .font(.largeTitle)
 //                        .padding(.bottom, 20)
 //                        .foregroundStyle(.white)
-//                    
-                    NavigationLink(destination: WriteView()) {
-                        Image(systemName: "square.and.pencil")
-                            .resizable()
-                            .frame(width:80, height:80)
-                            .foregroundColor(.white)
-                            .padding()
+//
+                    if hasWrittenToday {
+                        NavigationLink(destination: RecordDetailView()) {
+                            Image(systemName: "list.bullet.rectangle.portrait")
+                                .resizable()
+                                .frame(width:80, height:80)
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                        .labelStyle(.iconOnly)
+                        .font(.title)
+                    } else {
+                        NavigationLink(destination: WriteView()) {
+                            Image(systemName: "square.and.pencil")
+                                .resizable()
+                                .frame(width:80, height:80)
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                        .labelStyle(.iconOnly)
+                        .font(.title)
                     }
                     
-//                    .frame(width: 30, height: 50)
-                    .labelStyle(.iconOnly)
-                    .font(.title)
+                    
+
+                    
                     
                 }
 
@@ -58,7 +72,12 @@ struct HomeView: View {
             
         }
     }
-    
+    private var hasWrittenToday: Bool {
+        harubitNote.contains {
+            Calendar.current.isDateInToday($0.createdDate)
+        
+        }
+    }
     
     
     
