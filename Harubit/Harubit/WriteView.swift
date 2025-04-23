@@ -16,6 +16,8 @@ struct WriteView: View {
     @State private var content: String = ""
     @State private var createdDate: Date = Date.now
     
+    var noteToEdit: HarubitNote?
+    
     var body: some View {
         
         if didFinishFirstEntry {
@@ -43,16 +45,55 @@ struct WriteView: View {
                                 .foregroundColor(.gray)
                                 .padding(20)
                                 .padding(.vertical, 12)
+                            
                         }
                     }
                     Spacer()
                 }
-                .navigationBarItems(trailing: Button("완료") {
-                    let contentSet = HarubitNote(content: content)
-                    context.insert(contentSet)
-                                                        
-                    didFinishFirstEntry = true
-                })
+//                .navigationBarItems(trailing: Button("완료") {
+//                    if let note = noteToEdit {
+//                        note.content = content
+//                        try? context.save()
+//                    } else {
+//                        let newNote = HarubitNote(content: content)
+//                        context.insert(newNote)
+//                        try? context.save()
+//                    }
+//                                                        
+//                    didFinishFirstEntry = true
+//                }
+//                    .disabled(content.isEmpty))
+            }
+//            .navigationTitle(noteToEdit == nil ? "감사 일기 작성" : "일기 수정")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("완료") {
+                        if let note = noteToEdit {
+                            // 수정
+                            note.content = content
+                            try? context.save()
+                        } else {
+                            // 작성
+                            let newNote = HarubitNote(content: content, createdDate: createdDate)
+                            context.insert(newNote)
+                            try? context.save()
+                        }
+                        didFinishFirstEntry = true
+                    }
+                    .disabled(content.isEmpty)
+                }
+                
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("취소") {
+                        dismiss()
+                    }
+                }
+            }
+            .onAppear {
+                if let note = noteToEdit {
+                    content = note.content
+                    createdDate = note.createdDate
+                }
             }
         }
     }

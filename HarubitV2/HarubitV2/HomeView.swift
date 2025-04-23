@@ -12,14 +12,14 @@ struct HomeView: View {
     @StateObject var recordManger = RecordManager()
     @Query private var harubitNote: [HarubitNote]
     
-    
-
     var body: some View {
         NavigationStack {
             ZStack{
+                // 배경화면
                 Image("background")
                     .resizable()
                     .ignoresSafeArea()
+                // 애니메이션 추가 필요
                 VStack {
                     Text("감사의 순간들이 모여 하루의 빛이 됩니다.")
                         .padding([.bottom], 50)
@@ -28,21 +28,10 @@ struct HomeView: View {
                         .frame(width:200)
                         .multilineTextAlignment(.center)
                     
-//                    HStack(alignment: .center) {
-//                        Text(recordManger.getFormattedDate(form: "MM"))
-//                            .font(.largeTitle)
-//                        Text(recordManger.getFormattedDate(form: "EEE"))
-//                    }
-//                    .foregroundColor(.white)
-//                    
-//                    Text(recordManger.getFormattedDate(form: "dd"))
-//                        .font(.largeTitle)
-//                        .padding(.bottom, 20)
-//                        .foregroundStyle(.white)
-//
+                    // 시간이 지나면 보라색으로 변하도록 수정
                     if hasWrittenToday {
                         NavigationLink(destination: RecordDetailView()) {
-                            Image(systemName: "list.bullet.rectangle.portrait")
+                            Image(systemName: "list.bullet.rectangle.portrait") //오늘 일기가 작성되었으면 RecordDetailView 보여줌
                                 .resizable()
                                 .frame(width:80, height:80)
                                 .foregroundColor(.white)
@@ -51,8 +40,8 @@ struct HomeView: View {
                         .labelStyle(.iconOnly)
                         .font(.title)
                     } else {
-                        NavigationLink(destination: WriteView()) {
-                            Image(systemName: "square.and.pencil")
+                        NavigationLink(destination: WriteView(editingNote: nil)) {
+                            Image(systemName: "square.and.pencil") //오늘 일기가 작성되지 않았을 때 WriteView 보여줌
                                 .resizable()
                                 .frame(width:80, height:80)
                                 .foregroundColor(.white)

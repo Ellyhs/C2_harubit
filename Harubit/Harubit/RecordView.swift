@@ -16,9 +16,13 @@ struct RecordView: View {
     @State private var content: String = ""
     @State private var createdDate: Date = Date.now
 
+    var selectedDate: Date
     
     @State private var currentIndex: Int = 2
-    let pages = ["2023", "2024", "2025"]
+    var pages: [String] {
+            let currentYear = Calendar.current.component(.year, from: selectedDate)
+            return [String(currentYear - 2), String(currentYear - 1), String(currentYear)]
+        }
     
  
     var body: some View {
@@ -107,5 +111,5 @@ struct RecordView: View {
 }
 
 #Preview {
-    RecordView()
+    RecordView(selectedDate: Date())
 }
