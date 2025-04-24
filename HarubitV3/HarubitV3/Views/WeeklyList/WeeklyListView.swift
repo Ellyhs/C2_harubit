@@ -9,11 +9,10 @@ import SwiftUI
 
 struct WeeklyListView: View {
     
-    let cards: [GratitudeCard] = [
-            GratitudeCard(year: "2023", items: ["Korean BBQ dinner", "Kind gesture from a stranger", "Relaxing evening walk"]),
-            GratitudeCard(year: "2024", items: ["A cozy Sunday morning", "Chatting with my best friend", "Sunny and warm weather"]),
-            GratitudeCard(year: "2025", items: ["An inspiring podcast episode", "Making progress on a project", "The beautiful sunset"])
-        ]
+//    let cards: [GratitudeCard] = [
+//            GratitudeCard(date: "2023", content: "Korean BBQ dinner"),
+//            GratitudeCard(date: "2024", content: "A cozy Sunday morning"),
+//            GratitudeCard(date: "2025", content: "An inspiring podcast episode")]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -43,9 +42,9 @@ struct WeeklyListView: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 28) {
-                            ForEach(cards) { card in
-                                GratitudeCardView(card: card)
-                            }
+//                            ForEach(cards) { card in
+//                                GratitudeCardView(card: card)
+//                            }
                         }
                         .padding(.horizontal, 18)
                     }

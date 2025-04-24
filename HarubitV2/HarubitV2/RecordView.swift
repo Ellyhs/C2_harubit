@@ -50,9 +50,9 @@ struct RecordView: View {
                     .foregroundColor(.white)
                     .font(.title2)
                
-                Text("\(recordManger.getFormattedDate(form: "yyyy.MM.dd"))")
-                    .foregroundColor(.white)
-                    .font(.largeTitle)
+//                Text("\(recordManger.getFormattedDate(form: "yyyy.MM.dd"))")
+//                    .foregroundColor(.white)
+//                    .font(.largeTitle)
                 
                 Text("\(recordManger.getFormattedDate(form: "MM"))월 \(recordManger.getFormattedDate(form: "dd"))일")
                     .padding(.top, 10)

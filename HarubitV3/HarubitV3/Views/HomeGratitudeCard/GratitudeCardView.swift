@@ -1,23 +1,14 @@
 import SwiftUI
 
-// 데이터 모델
-struct GratitudeCard: Identifiable {
-    let id = UUID()
-    let year: String
-    let items: [String]
-}
+
 
 // 카드 뷰
 struct GratitudeCardView: View {
     @StateObject private var recordManager = RecordManager()
-    let card: GratitudeCard
+//    let card: GratitudeCard
 
     var body: some View {
         ZStack {
-//            Image("background2")
-//                .resizable()
-////                .scaledToFill()
-//                .ignoresSafeArea()
             
             ZStack{
                 // 바깥 카드
@@ -25,18 +16,14 @@ struct GratitudeCardView: View {
                 Image("background3") // Assets에 추가한 이미지 이름
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 300, height: 450)
+                    .frame(width: 260, height: 400)
+//                    .frame(width: 300, height: 450)
                     .clipShape(RoundedRectangle(cornerRadius: 50))
                     .shadow(color: Color.white.opacity(0.2), radius: 10, x: -10, y: -10)
-                    .overlay(RoundedRectangle(cornerRadius: 50)
-                        .stroke(Color.white, lineWidth: 0.8))
-//                VStack {
-//                    Text("\(recordManager.getFormattedDate(format: "yyyy. MM. dd"))")
-//                        .font(.system(size: 28, weight: .regular, design: .default))
-//                        .foregroundColor(Color(red: 0.45, green: 0.42, blue: 0.28))
-//                        .padding(.top, 30)
-//                    Spacer()
-//                }
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 50)
+                        .stroke(Color.white, lineWidth: 0.8)
+                    )
                 
                 
                 // 안쪽 카드
@@ -80,7 +67,7 @@ struct GratitudeCardView: View {
                         .stroke(Color.white, lineWidth: 1.0)
                 )
                 .padding(10)
-                .frame(width: 300, height: 315)
+                .frame(width: 260, height: 315)
             }
             .frame(width: 245, height: 315)
         }
@@ -88,15 +75,8 @@ struct GratitudeCardView: View {
     }
     
 }
-let card = GratitudeCard(
-    year: "2024",
-    items: [
-        "A cozy Sunday morning",
-        "Chatting with my best friend",
-        "Sunny and warm weatherdddddddddddddddddddddddddddddddddddddddddddddddddd"
-    ]
-)
 
-#Preview {
-    GratitudeCardView(card: card)
-}
+
+//#Preview {
+//    GratitudeCardView(card: card)
+//}

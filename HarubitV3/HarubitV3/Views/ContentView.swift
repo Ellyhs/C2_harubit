@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     var body: some View {
-        HomeView()
+        HomeView(selectedDate: Date())
     }
     
 }
@@ -17,4 +18,6 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(for: GratitudeCard.self)
 }
+
